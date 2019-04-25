@@ -1,2 +1,3 @@
 include 'aconite-webflux-spring-boot-starter'
+include 'aconite-webflux-error-spring-boot-starter'
 include 'example'

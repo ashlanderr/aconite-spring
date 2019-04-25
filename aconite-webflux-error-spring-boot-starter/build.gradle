@@ -1,0 +1,32 @@
+plugins {
+	id 'maven-publish'
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
+task sourcesJar(type: Jar) {
+	from sourceSets.main.java.srcDirs
+	classifier = 'sources'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	from javadoc.destinationDir
+	classifier = 'javadoc'
+}
+
+artifacts {
+	archives javadocJar
+	archives sourcesJar
+}
+
+dependencies {
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+	implementation "org.jetbrains.kotlin:kotlin-reflect"
+	implementation project(':aconite-webflux-spring-boot-starter')
+}

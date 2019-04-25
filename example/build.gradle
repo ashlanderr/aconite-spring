@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     compile project(':aconite-webflux-spring-boot-starter')
+    compile project(':aconite-webflux-error-spring-boot-starter')
 }
 
 bootJar {
