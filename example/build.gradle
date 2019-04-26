@@ -24,8 +24,12 @@ repositories {
 }
 
 dependencies {
-    compile project(':aconite-webflux-spring-boot-starter')
+    compile project(':aconite-data-spring-boot-starter')
+    compile project(':aconite-retrofit-spring-boot-starter')
+    compile project(':aconite-webflux-server-spring-boot-starter')
     compile project(':aconite-webflux-error-spring-boot-starter')
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile "org.postgresql:postgresql:42.2.5"
 }
 
 bootJar {

@@ -28,6 +28,10 @@ artifacts {
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
-	implementation project(':aconite-webflux-server-spring-boot-starter')
-	implementation project(':aconite-retrofit-spring-boot-starter')
+	compile "org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}"
+	compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
+	compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}"
+	compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}"
+	compile "com.squareup.retrofit2:retrofit:2.6.0-SNAPSHOT"
+	compile "com.squareup.retrofit2:converter-jackson:2.1.0"
 }

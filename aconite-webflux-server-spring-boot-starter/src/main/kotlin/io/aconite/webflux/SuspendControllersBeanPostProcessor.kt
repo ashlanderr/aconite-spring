@@ -4,7 +4,6 @@ import org.springframework.aop.framework.ProxyFactory
 import org.springframework.aop.support.DefaultPointcutAdvisor
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.config.BeanPostProcessor
-import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.RestController
 import kotlin.reflect.KClass
 

@@ -1,3 +1,5 @@
-include 'aconite-webflux-spring-boot-starter'
+include 'aconite-data-spring-boot-starter'
+include 'aconite-retrofit-spring-boot-starter'
+include 'aconite-webflux-server-spring-boot-starter'
 include 'aconite-webflux-error-spring-boot-starter'
 include 'example'

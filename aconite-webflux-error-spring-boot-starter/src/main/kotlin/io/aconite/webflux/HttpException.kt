@@ -16,4 +16,11 @@ class HttpException(
 ) : RuntimeException(
     message,
     cause
-)
+) {
+    override fun toString(): String {
+        return "HttpException(" +
+            "status=$httpStatus, " +
+            "extCode=$extCode, " +
+            "message='$message')"
+    }
+}
