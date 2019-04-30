@@ -14,14 +14,14 @@ class DefaultTransactionalCoroutineExecutor(
     override suspend operator fun <T> invoke(block: suspend () -> T): T {
         return suspendCoroutine { cont ->
             executor.execute {
-                transactionTemplate.execute {
+                transactionTemplate.execute { tx ->
                     runBlocking {
                         try {
                             val result = block()
                             cont.resume(result)
                         } catch (ex: Throwable) {
+                            tx.setRollbackOnly()
                             cont.resumeWithException(ex)
-                            throw ex
                         }
                     }
                 }
