@@ -51,11 +51,10 @@ class WebClientCall(
                 .protocol(Protocol.HTTP_1_1) // todo
                 .code(respEntity.statusCodeValue)
                 .message(respEntity.statusCode.reasonPhrase)
-            respEntity.body?.let { body ->
-                val mediaType = respEntity.headers.contentType?.let { okhttp3.MediaType.get(it.toString()) }
-                val respBody = ResponseBody.create(mediaType, body)
-                respBuilder.body(respBody)
-            }
+            val body = respEntity.body ?: ""
+            val mediaType = respEntity.headers.contentType?.let { okhttp3.MediaType.get(it.toString()) }
+            val respBody = ResponseBody.create(mediaType, body)
+            respBuilder.body(respBody)
             for ((header, values) in respEntity.headers) {
                 for (value in values) {
                     respBuilder.addHeader(header, value)
