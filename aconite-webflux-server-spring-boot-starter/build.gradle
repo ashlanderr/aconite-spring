@@ -2,27 +2,14 @@ plugins {
 	id 'maven-publish'
 }
 
+apply plugin: 'com.bmuschko.nexus'
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
 		}
 	}
-}
-
-task sourcesJar(type: Jar) {
-	from sourceSets.main.java.srcDirs
-	classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	from javadoc.destinationDir
-	classifier = 'javadoc'
-}
-
-artifacts {
-	archives javadocJar
-	archives sourcesJar
 }
 
 dependencies {
@@ -37,4 +24,22 @@ dependencies {
 	compile "io.springfox:springfox-spring-webflux:${springfoxVersion}"
 	compile "io.springfox:springfox-spring-integration-webflux:${springfoxVersion}"
 	compile "io.springfox:springfox-swagger-ui:${springfoxVersion}"
+}
+
+modifyPom {
+	project {
+		name 'Spring Reactive Web Server + Kotlin'
+	}
+}
+
+extraArchive {
+	sources = true
+	tests = false
+	javadoc = true
+}
+
+nexus {
+	sign = false
+	repositoryUrl = "${nexusUrl}/maven-releases/"
+	snapshotRepositoryUrl = "${nexusUrl}/maven-snapshots/"
 }

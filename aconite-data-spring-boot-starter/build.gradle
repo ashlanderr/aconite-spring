@@ -2,6 +2,8 @@ plugins {
 	id 'maven-publish'
 }
 
+apply plugin: 'com.bmuschko.nexus'
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
@@ -10,25 +12,28 @@ publishing {
 	}
 }
 
-task sourcesJar(type: Jar) {
-	from sourceSets.main.java.srcDirs
-	classifier = 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-	from javadoc.destinationDir
-	classifier = 'javadoc'
-}
-
-artifacts {
-	archives javadocJar
-	archives sourcesJar
-}
-
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
 	implementation "org.springframework:spring-tx:${springVersion}"
 	compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}"
+}
+
+modifyPom {
+	project {
+		name 'Spring Data + Kotlin'
+	}
+}
+
+extraArchive {
+	sources = true
+	tests = false
+	javadoc = true
+}
+
+nexus {
+	sign = false
+	repositoryUrl = "${nexusUrl}/maven-releases/"
+	snapshotRepositoryUrl = "${nexusUrl}/maven-snapshots/"
 }

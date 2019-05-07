@@ -5,12 +5,15 @@ buildscript {
 		springVersion = '5.1.4.RELEASE'
 		springBootVersion = '2.1.4.RELEASE'
 		springfoxVersion = '3.0.0-SNAPSHOT'
+		nexusUrl = 'http://mgmt.nppsatek.com:8081/repository'
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
-		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+		classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}"
+		classpath 'com.bmuschko:gradle-nexus-plugin:2.3.1'
 	}
 }
 
