@@ -14,7 +14,7 @@ class HttpException(
     message: String? = null,
     cause: Throwable? = null
 ) : RuntimeException(
-    message,
+    message ?: httpStatus.reasonPhrase,
     cause
 ) {
     override fun toString(): String {
