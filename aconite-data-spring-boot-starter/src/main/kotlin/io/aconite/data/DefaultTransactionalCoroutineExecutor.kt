@@ -11,19 +11,24 @@ class DefaultTransactionalCoroutineExecutor(
     private val executor: Executor,
     private val transactionTemplate: TransactionTemplate
 ) : TransactionalCoroutineExecutor {
+    @Suppress("UNCHECKED_CAST")
     override suspend operator fun <T> invoke(block: suspend () -> T): T {
         return suspendCoroutine { cont ->
             executor.execute {
-                transactionTemplate.execute { tx ->
+                val (result, ex) = transactionTemplate.execute { tx ->
                     runBlocking {
                         try {
-                            val result = block()
-                            cont.resume(result)
+                            Pair(block(), null)
                         } catch (ex: Throwable) {
                             tx.setRollbackOnly()
-                            cont.resumeWithException(ex)
+                            Pair(null, ex)
                         }
                     }
+                }!!
+                if (ex != null) {
+                    cont.resumeWithException(ex)
+                } else {
+                    cont.resume(result as T)
                 }
             }
         }
