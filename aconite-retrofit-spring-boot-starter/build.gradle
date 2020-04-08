@@ -19,8 +19,8 @@ dependencies {
 	compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}"
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}"
-	compile "com.squareup.retrofit2:retrofit:2.6.0-SNAPSHOT"
-	compile "com.squareup.retrofit2:converter-jackson:2.1.0"
+	compile "com.squareup.retrofit2:retrofit:2.8.1"
+	compile "com.squareup.retrofit2:converter-jackson:2.8.1"
 }
 
 modifyPom {
