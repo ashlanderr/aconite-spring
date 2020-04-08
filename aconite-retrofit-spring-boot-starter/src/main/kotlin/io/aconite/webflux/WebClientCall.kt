@@ -39,7 +39,7 @@ class WebClientCall(
             builder.contentLength(body.contentLength())
             val data = Buffer()
             body.writeTo(data)
-            builder.syncBody(data.readByteArray())
+            builder.bodyValue(data.readByteArray())
         }
 
         val bodyFlux = builder.exchange()
