@@ -2,15 +2,7 @@ plugins {
 	id 'maven-publish'
 }
 
-apply plugin: 'com.bmuschko.nexus'
-
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
-		}
-	}
-}
+apply plugin: 'com.jfrog.bintray'
 
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
@@ -26,20 +18,45 @@ dependencies {
 	compile "io.springfox:springfox-swagger-ui:${springfoxVersion}"
 }
 
-modifyPom {
-	project {
-		name 'Spring Reactive Web Server + Kotlin'
-	}
+task sourcesJar(type: Jar) {
+    classifier = "sources"
+    from "src/main/kotlin"
 }
 
-extraArchive {
-	sources = true
-	tests = false
-	javadoc = true
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+
+            from components.kotlin
+            artifact sourcesJar
+        }
+    }
 }
 
-nexus {
-	sign = false
-	repositoryUrl = "${nexusUrl}/maven-releases/"
-	snapshotRepositoryUrl = "${nexusUrl}/maven-snapshots/"
+artifacts {
+    archives sourcesJar
 }
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    publications = ['maven']
+    dryRun = project.version.endsWith('SNAPSHOT')
+    publish = true
+    pkg {
+        repo = 'aconite-spring'
+        name = project.name
+        vcsUrl = "https://github.com/ashlanderr/aconite-spring"
+        licenses = ['MIT']
+        version {
+            name = project.version
+            desc = project.name
+            released = new Date()
+            vcsTag = project.version
+        }
+    }
+}
+
