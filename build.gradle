@@ -4,7 +4,7 @@ buildscript {
 		kotlinCoroutinesVersion = '1.2.0'
 		springVersion = '5.2.0.RELEASE'
 		springBootVersion = '2.2.0.RELEASE'
-		springfoxVersion = '3.0.0-SNAPSHOT'
+		springfoxVersion = '3.0.0'
 	}
 	repositories {
 		mavenCentral()

@@ -12,10 +12,7 @@ dependencies {
 	compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutinesVersion}"
 	compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${kotlinCoroutinesVersion}"
-	compile "io.springfox:springfox-swagger2:${springfoxVersion}"
-	compile "io.springfox:springfox-spring-webflux:${springfoxVersion}"
-	compile "io.springfox:springfox-spring-integration-webflux:${springfoxVersion}"
-	compile "io.springfox:springfox-swagger-ui:${springfoxVersion}"
+	compile "io.springfox:springfox-boot-starter:${springfoxVersion}"
 }
 
 task sourcesJar(type: Jar) {
