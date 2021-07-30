@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/github-package
     tags:
       - v*
 
@@ -23,6 +24,5 @@ jobs:
           java-version: 1.8
       - name: Deploy with Gradle
         env:
-          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-          BINTRAY_KEY: ${{ secrets.BINTRAY_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./publish.sh

@@ -2,8 +2,6 @@ plugins {
 	id 'maven-publish'
 }
 
-apply plugin: 'com.jfrog.bintray'
-
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "org.jetbrains.kotlin:kotlin-reflect"
@@ -18,6 +16,16 @@ task sourcesJar(type: Jar) {
 }
 
 publishing {
+    repositories {
+        maven {
+            name = project.name
+            url = "https://maven.pkg.github.com/ashlanderr/aconite-spring"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
     publications {
         maven(MavenPublication) {
             groupId = project.group
@@ -33,24 +41,3 @@ publishing {
 artifacts {
     archives sourcesJar
 }
-
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['maven']
-    dryRun = project.version.endsWith('SNAPSHOT')
-    publish = true
-    pkg {
-        repo = 'aconite-spring'
-        name = project.name
-        vcsUrl = "https://github.com/ashlanderr/aconite-spring"
-        licenses = ['MIT']
-        version {
-            name = project.version
-            desc = project.name
-            released = new Date()
-            vcsTag = project.version
-        }
-    }
-}
-
